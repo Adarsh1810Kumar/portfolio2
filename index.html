@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Carter | Full Stack Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f59e0b;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .project-card {
+            transition: all 0.3s ease;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .project-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .project-card:hover .project-card-inner {
+            transform: rotateY(5deg);
+        }
+        
+        .skill-bar {
+            transition: width 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        
+        .dark .skill-bar {
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+        }
+        
+        .glow-on-hover {
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .glow-on-hover:hover {
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.7);
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(180deg, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0) 100%);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            filter: blur(30px);
+            z-index: -1;
+            animation: blob-animate 20s infinite alternate;
+        }
+        
+        @keyframes blob-animate {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            }
+            50% {
+                transform: translate(50px, -50px) scale(1.1);
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+            100% {
+                transform: translate(0px, 0px) scale(1);
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            }
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid var(--primary);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 2px;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary); }
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .dark .glass-effect {
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 24px;
+            height: 100%;
+            width: 2px;
+            background: var(--primary);
+        }
+    </style>
+</head>
+<body class="transition-colors duration-300" x-data="{ darkMode: false, mobileMenuOpen: false }" :class="{ 'dark bg-gray-900': darkMode }">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <a href="#" class="text-2xl font-bold gradient-text heading-font">Adarsh kumar</a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link relative group text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                        Home
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#about" class="nav-link relative group text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                        About
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#projects" class="nav-link relative group text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                        Projects
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#skills" class="nav-link relative group text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                        Skills
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#experience" class="nav-link relative group text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                        Experience
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#contact" class="nav-link relative group text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">
+                        Contact
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 transition-all group-hover:w-full"></span>
+                    </a>
+                    <button @click="darkMode = !darkMode" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <i class="bi bi-moon-stars-fill dark:hidden text-indigo-600"></i>
+                        <i class="bi bi-sun-fill hidden dark:block text-yellow-400"></i>
+                    </button>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <button @click="darkMode = !darkMode" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <i class="bi bi-moon-stars-fill dark:hidden text-indigo-600"></i>
+                        <i class="bi bi-sun-fill hidden dark:block text-yellow-400"></i>
+                    </button>
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <i class="bi bi-list text-2xl text-gray-600 dark:text-gray-300"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" 
+             class="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-900 shadow-lg py-4 px-6 transition-all duration-300"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 transform -translate-y-2"
+             x-transition:enter-end="opacity-100 transform translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 transform translate-y-0"
+             x-transition:leave-end="opacity-0 transform -translate-y-2">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" @click="mobileMenuOpen = false" class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2">Home</a>
+                <a href="#about" @click="mobileMenuOpen = false" class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2">About</a>
+                <a href="#projects" @click="mobileMenuOpen = false" class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2">Projects</a>
+                <a href="#skills" @click="mobileMenuOpen = false" class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2">Skills</a>
+                <a href="#experience" @click="mobileMenuOpen = false" class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2">Experience</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="nav-link text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 py-2">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 dark:bg-gray-900 relative overflow-hidden">
+        <div class="blob top-0 right-0 transform translate-x-1/2 -translate-y-1/2"></div>
+        <div class="blob bottom-0 left-0 transform -translate-x-1/2 translate-y-1/2"></div>
+        
+        <div class="container mx-auto px-4 relative">
+            <div class="flex flex-col-reverse md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mt-10 md:mt-0">
+                    <h1 class="text-4xl md:text-6xl font-bold text-gray-800 dark:text-white mb-6 heading-font">
+                        Hi, I'm <span class="gradient-text">Adarsh kumar</span>
+                    </h1>
+                    <div class="typewriter text-2xl md:text-3xl text-indigo-600 dark:text-indigo-400 mb-6 heading-font">
+                        Full Stack Developer
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 text-lg mb-8">
+                        I build exceptional digital experiences with modern web technologies. 
+                        Passionate about creating solutions that solve real-world problems.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#contact" class="bg-gradient-to-r from-indigo-600 to-indigo-400 text-white px-6 py-3 rounded-lg hover:from-indigo-700 hover:to-indigo-500 transition-all glow-on-hover">
+                            Contact Me
+                        </a>
+                        <a href="#projects" class="border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 px-6 py-3 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-800 transition-all">
+                            View Work
+                        </a>
+                    </div>
+                    
+                    <div class="mt-12 flex space-x-6">
+                        <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                            <i class="bi bi-github text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                            <i class="bi bi-linkedin text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                            <i class="bi bi-twitter-x text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                            <i class="bi bi-stack-overflow text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 mb-10 md:mb-0 flex justify-center">
+                    <div class="relative">
+                        <img src="WhatsApp Image 2025-03-31 at 16.52.59_a8b305ad.jpg" 
+                             alt="Developer" 
+                             class="rounded-full w-64 h-64 md:w-80 md:h-80 object-cover border-4 border-white dark:border-gray-800 shadow-xl floating">
+                        <div class="absolute -bottom-5 -right-5 bg-indigo-600 text-white p-3 rounded-full shadow-lg">
+                            <i class="bi bi-code-slash text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-12 heading-font">
+                <span class="gradient-text">About</span> Me
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="animate__animated" data-animate="animate__fadeInLeft">
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4 heading-font">Who I Am</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        I'm a passionate Full Stack Developer with 1+ years of experience building web applications. 
+                        I specialize in JavaScript technologies across the whole stack (React.js, Node.js, Express.js, MongoDB).
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        When I'm not coding, you can find me hiking in the mountains, reading sci-fi novels, 
+                        or contributing to open-source projects. I believe in continuous learning and pushing 
+                        the boundaries of what's possible with code.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center space-x-2">
+                            <i class="bi bi-geo-alt-fill text-indigo-600 dark:text-indigo-400"></i>
+                            <span class="text-gray-600 dark:text-gray-300">Jaipur,Rajasthan,India</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="bi bi-envelope-fill text-indigo-600 dark:text-indigo-400"></i>
+                            <span class="text-gray-600 dark:text-gray-300">galaxyadarsh53@gmail.com</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="bi bi-phone-fill text-indigo-600 dark:text-indigo-400"></i>
+                            <span class="text-gray-600 dark:text-gray-300">+91-6202436464</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="bi bi-mortarboard-fill text-indigo-600 dark:text-indigo-400"></i>
+                            <span class="text-gray-600 dark:text-gray-300">BTech Computer Science</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="animate__animated" data-animate="animate__fadeInRight">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                            <div class="text-indigo-600 dark:text-indigo-400 text-3xl mb-2">
+                                <i class="bi bi-code-square"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 dark:text-white mb-2">Web Development</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">
+                                Building responsive, accessible, and performant websites and web applications.
+                            </p>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                            <div class="text-indigo-600 dark:text-indigo-400 text-3xl mb-2">
+                                <i class="bi bi-phone"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 dark:text-white mb-2">Mobile Apps</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">
+                                Cross-platform mobile applications with React Native and Flutter.
+                            </p>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                            <div class="text-indigo-600 dark:text-indigo-400 text-3xl mb-2">
+                                <i class="bi bi-database"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 dark:text-white mb-2">Backend Services</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">
+                                Scalable APIs and microservices with Node.js, Python, and cloud technologies.
+                            </p>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                            <div class="text-indigo-600 dark:text-indigo-400 text-3xl mb-2">
+                                <i class="bi bi-palette"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800 dark:text-white mb-2">UI/UX Design</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">
+                                Creating intuitive user interfaces with modern design principles.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-12 heading-font">
+                My <span class="gradient-text">Journey</span>
+            </h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-8">
+                    <!-- Experience 1 -->
+                    <div class="timeline-item relative pl-8">
+                        <div class="absolute left-0 top-0 w-4 h-4 rounded-full bg-indigo-600 border-4 border-indigo-100 dark:border-gray-800"></div>
+                        <div class="glass-effect p-6 rounded-xl shadow-sm">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Full Stack Developer</h3>
+                                <span class="text-indigo-600 dark:text-indigo-400 text-sm font-medium">2025 - Present</span>
+                            </div>
+                            <h4 class="text-gray-600 dark:text-gray-300 font-medium mb-3">worked on AI + Healthcare projects .</h4>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                I’ve developed an AI-powered medical analyzes X-ray/MRI images to detect 95% accuracy
+                                Instant Analysis: Upload scans for AI-powered detection of common conditions
+                                User-Friendly Interface: Clean, intuitive design for seamless user experience
+                                Responsive Design: Works across devices for accessibility
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Experience 2 -->
+                    <div class="timeline-item relative pl-8">
+                        <div class="absolute left-0 top-0 w-4 h-4 rounded-full bg-indigo-600 border-4 border-indigo-100 dark:border-gray-800"></div>
+                        <div class="glass-effect p-6 rounded-xl shadow-sm">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Full stack developer </h3>
+                                <span class="text-indigo-600 dark:text-indigo-400 text-sm font-medium">2024 - 2025</span>
+                            </div>
+                            <h4 class="text-gray-600 dark:text-gray-300 font-medium mb-3">My AI Content Generator</h4>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                creates high-quality articles, social media posts, video scripts, and more in seconds
+                                🔹 Key Features:
+
+                                      ,Trend analysis from multiple industries
+
+                                      ,Customizable content types & tones
+
+                                      ,Professional, casual, or viral writing styles
+
+                                      ,One-click copy/download functionality
+
+
+                                
+                                
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Experience 3 -->
+                    <div class="timeline-item relative pl-8">
+                        <div class="absolute left-0 top-0 w-4 h-4 rounded-full bg-indigo-600 border-4 border-indigo-100 dark:border-gray-800"></div>
+                        <div class="glass-effect p-6 rounded-xl shadow-sm">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">AI Junior Developer</h3>
+                                <span class="text-indigo-600 dark:text-indigo-400 text-sm font-medium">2023 - 2024</span>
+                            </div>
+                            <h4 class="text-gray-600 dark:text-gray-300 font-medium mb-3">Project</h4>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Assisted in developing AI models Apps (Computer Vision) using Python,TensorFlow/PyTorch, achieving ~85% accuracy.
+                                
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-12 heading-font">
+                Featured <span class="gradient-text">Projects</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card group">
+                    <div class="project-card-inner h-full bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden">
+                        <div class="relative overflow-hidden h-48">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" 
+                                 alt="E-commerce Platform" 
+                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+                                <h3 class="text-xl font-semibold text-white">E-commerce Platform</h3>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">
+                                A full-featured e-commerce solution with payment processing, inventory management, and analytics dashboard.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">React</span>
+                                <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Node.js</span>
+                                <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">MongoDB</span>
+                                <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Stripe API</span>
+                            </div>
+                            <div class="flex space-x-4">
+                                <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center">
+                                    <i class="bi bi-github mr-2"></i> Code
+                                </a>
+                                <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center">
+                                    <i class="bi bi-box-arrow-up-right mr-2"></i> Live Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card group">
+                    <div class="project-card-inner h-full bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden">
+                        <div class="relative overflow-hidden h-48">
+                            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=800" 
+                                 alt="Task Management App" 
+                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+                                <h3 class="text-xl font-semibold text-white">Task Management App</h3>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">
+                                A collaborative task management application with real-time updates, drag-and-drop interface, and team features.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Vue.js</span>
+                                <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Firebase</span>
+                                <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Tailwind</span>
+                                <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">WebSockets</span>
+                            </div>
+                            <div class="flex space-x-4">
+                                <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center">
+                                    <i class="bi bi-github mr-2"></i> Code
+                                </a>
+                                <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center">
+                                    <i class="bi bi-box-arrow-up-right mr-2"></i> Live Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card group">
+                    <div class="project-card-inner h-full bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden">
+                        <div class="relative overflow-hidden h-48">
+                            <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&q=80&w=800" 
+                                 alt="AI Chat Application" 
+                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+                                <h3 class="text-xl font-semibold text-white">AI Chat Application</h3>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-600 dark:text-gray-300 mb-4">
+                                An AI-powered chat application with natural language processing, sentiment analysis, and personalized responses.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Python</span>
+                                <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">TensorFlow</span>
+                                <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Flask</span>
+                                <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">NLP</span>
+                            </div>
+                            <div class="flex space-x-4">
+                                <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center">
+                                    <i class="bi bi-github mr-2"></i> Code
+                                </a>
+                                <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center">
+                                    <i class="bi bi-box-arrow-up-right mr-2"></i> Live Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium">
+                    View All Projects
+                    <i class="bi bi-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-12 heading-font">
+                My <span class="gradient-text">Skills</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-6 heading-font">Technical Skills</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700 dark:text-gray-300 font-medium">JavaScript/TypeScript</span>
+                                <span class="text-gray-700 dark:text-gray-300">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="skill-bar bg-gradient-to-r from-indigo-600 to-indigo-400 rounded-full h-2.5" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700 dark:text-gray-300 font-medium">React.js/Next.js</span>
+                                <span class="text-gray-700 dark:text-gray-300">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="skill-bar bg-gradient-to-r from-indigo-600 to-indigo-400 rounded-full h-2.5" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700 dark:text-gray-300 font-medium">Node.js/Express</span>
+                                <span class="text-gray-700 dark:text-gray-300">88%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="skill-bar bg-gradient-to-r from-indigo-600 to-indigo-400 rounded-full h-2.5" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700 dark:text-gray-300 font-medium">Python/Django</span>
+                                <span class="text-gray-700 dark:text-gray-300">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="skill-bar bg-gradient-to-r from-indigo-600 to-indigo-400 rounded-full h-2.5" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-6 heading-font">Tools & Technologies</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="flex flex-col items-center justify-center bg-white dark:bg-gray-700 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                            <i class="bi bi-git text-3xl text-indigo-600 dark:text-indigo-400 mb-2"></i>
+                            <span class="text-gray-700 dark:text-gray-300 text-sm">Git</span>
+                        </div>
+                        <div class="flex flex-col items-center justify-center bg-white dark:bg-gray-700 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                            <i class="bi bi-docker text-3xl text-indigo-600 dark:text-indigo-400 mb-2"></i>
+                            <span class="text-gray-700 dark:text-gray-300 text-sm">Docker</span>
+                        </div>
+                        <div class="flex flex-col items-center justify-center bg-white dark:bg-gray-700 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                            <i class="bi bi-cloud text-3xl text-indigo-600 dark:text-indigo-400 mb-2"></i>
+                            <span class="text-gray-700 dark:text-gray-300 text-sm">AWS</span>
+                        </div>
+                        <div class="flex flex-col items-center justify-center bg-white dark:bg-gray-700 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                            <i class="bi bi-database text-3xl text-indigo-600 dark:text-indigo-400 mb-2"></i>
+                            <span class="text-gray-700 dark:text-gray-300 text-sm">MongoDB</span>
+                        </div>
+                        <div class="flex flex-col items-center justify-center bg-white dark:bg-gray-700 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                            <i class="bi bi-terminal text-3xl text-indigo-600 dark:text-indigo-400 mb-2"></i>
+                            <span class="text-gray-700 dark:text-gray-300 text-sm">Linux</span>
+                        </div>
+                        <div class="flex flex-col items-center justify-center bg-white dark:bg-gray-700 p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                            <i class="bi bi-kanban text-3xl text-indigo-600 dark:text-indigo-400 mb-2"></i>
+                            <span class="text-gray-700 dark:text-gray-300 text-sm">Agile</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mt-8 mb-4 heading-font">Languages</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">English (Fluent)</span>
+                        <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">Spanish (Intermediate)</span>
+                        <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 rounded-full text-sm">French (Basic)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-indigo-600 text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 heading-font">Client <span class="gradient-text">Testimonials</span></h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah Johnson" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Sarah Johnson</h4>
+                            <p class="text-indigo-200 text-sm">CEO, TechSolutions Inc.</p>
+                        </div>
+                    </div>
+                    <p class="text-indigo-100">
+                        "Adarsh transformed our e-commerce platform with his expertise. The system now handles 3x more traffic with faster load times. His attention to detail is exceptional."
+                    </p>
+                    <div class="flex mt-4 text-yellow-300">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Michael Chen</h4>
+                            <p class="text-indigo-200 text-sm">CTO, Digital Creations</p>
+                        </div>
+                    </div>
+                    <p class="text-indigo-100">
+                        "Working with Adarsh kumar was a game-changer for our team. He not only delivered outstanding code but also mentored our junior developers. Highly recommended!"
+                    </p>
+                    <div class="flex mt-4 text-yellow-300">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Emma Rodriguez" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Emma Rodriguez</h4>
+                            <p class="text-indigo-200 text-sm">Product Manager, StartUp Ventures</p>
+                        </div>
+                    </div>
+                    <p class="text-indigo-100">
+                        "Adarsh kumar's ability to understand complex requirements and turn them into elegant solutions is remarkable. He's our go-to developer for mission-critical projects."
+                    </p>
+                    <div class="flex mt-4 text-yellow-300">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-half"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-12 heading-font">
+                Get In <span class="gradient-text">Touch</span>
+            </h2>
+            
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4 heading-font">Let's Talk About Your Project</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Have a project in mind or want to discuss potential opportunities? 
+                        Feel free to reach out and I'll get back to you as soon as possible.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-indigo-100 dark:bg-indigo-900 p-3 rounded-full">
+                                <i class="bi bi-envelope-fill text-indigo-600 dark:text-indigo-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 dark:text-white">Email Me</h4>
+                                <a href="galaxyadarsh53@gmail.com" class="text-indigo-600 dark:text-indigo-400 hover:underline">galaxyadarsh53@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-indigo-100 dark:bg-indigo-900 p-3 rounded-full">
+                                <i class="bi bi-telephone-fill text-indigo-600 dark:text-indigo-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 dark:text-white">Call Me</h4>
+                                <a href="tel:+91-6202436464" class="text-indigo-600 dark:text-indigo-400 hover:underline">+91-6202436464</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-indigo-100 dark:bg-indigo-900 p-3 rounded-full">
+                                <i class="bi bi-geo-alt-fill text-indigo-600 dark:text-indigo-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 dark:text-white">Location</h4>
+                                <p class="text-gray-600 dark:text-gray-300">Jaipur,Rajasthan,India</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="font-semibold text-gray-800 dark:text-white mb-4">Follow Me</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-white dark:bg-gray-700 p-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-indigo-900 transition-colors">
+                                <i class="bi bi-github"></i>
+                            </a>
+                            <a href="#" class="bg-white dark:bg-gray-700 p-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-indigo-900 transition-colors">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+                            <a href="#" class="bg-white dark:bg-gray-700 p-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-indigo-900 transition-colors">
+                                <i class="bi bi-twitter-x"></i>
+                            </a>
+                            <a href="#" class="bg-white dark:bg-gray-700 p-3 rounded-full text-gray-700 dark:text-gray-300 hover:bg-indigo-100 dark:hover:bg-indigo-900 transition-colors">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <label class="block text-gray-700 dark:text-gray-300 mb-2 font-medium" for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required
+                                   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 dark:text-gray-300 mb-2 font-medium" for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required
+                                   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 dark:text-gray-300 mb-2 font-medium" for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required
+                                   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 dark:text-gray-300 mb-2 font-medium" for="message">Your Message</label>
+                            <textarea id="message" name="message" rows="5" required
+                                      class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white transition-all"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit"
+                                    class="w-full bg-gradient-to-r from-indigo-600 to-indigo-400 text-white px-6 py-3 rounded-lg hover:from-indigo-700 hover:to-indigo-500 transition-all glow-on-hover font-medium">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left mb-6 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-2 heading-font">Adarsh <span class="gradient-text">Kumar</span></h3>
+                    <p class="text-gray-400">Building the future, one line of code at a time.</p>
+                </div>
+                
+                <div class="flex flex-col items-center md:items-end">
+                    <div class="flex space-x-6 mb-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="bi bi-github text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="bi bi-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="bi bi-twitter-x text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="bi bi-instagram text-xl"></i>
+                        </a>
+                    </div>
+                    <p class="text-gray-400 text-sm">&copy; 2025 Adarsh Kumar. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition-colors hidden">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        // Dark mode toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+        }
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+
+            // Here you would typically send the form data to a server
+            console.log('Form submitted:', formData);
+            
+            // Show success message
+            alert('Thank you for your message! I will get back to you soon.');
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Intersection Observer for animations
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('[data-animate]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add(entry.target.dataset.animate);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            elements.forEach(el => observer.observe(el));
+        };
+
+        // Initialize animations when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            animateOnScroll();
+            
+            // Animate skill bars when skills section is in view
+            const skillsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const skillBars = document.querySelectorAll('.skill-bar');
+                        skillBars.forEach(bar => {
+                            const width = bar.style.width;
+                            bar.style.width = '0';
+                            setTimeout(() => {
+                                bar.style.width = width;
+                            }, 200);
+                        });
+                        skillsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            const skillsSection = document.getElementById('skills');
+            if (skillsSection) {
+                skillsObserver.observe(skillsSection);
+            }
+        });
+
+        // Typewriter effect
+        const typewriterElement = document.querySelector('.typewriter');
+        if (typewriterElement) {
+            // Reset animation for demo purposes
+            setTimeout(() => {
+                typewriterElement.style.animation = 'none';
+                typewriterElement.offsetHeight; // Trigger reflow
+                typewriterElement.style.animation = null;
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
